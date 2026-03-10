@@ -1,20 +1,17 @@
-#
-# Copyright (C) 2023 The Android Open Source Project
-# Copyright (C) 2023 SebaUbuntu's TWRP device tree generator
-#
-# SPDX-License-Identifier: Apache-2.0
-#
-
-LOCAL_PATH := device/infinix/Infinix-X657
-
-# Dynamic Partitions
+# Dynamic Partition Support
 PRODUCT_USE_DYNAMIC_PARTITIONS := true
 
-# System as Root (SAR)
+# Decryption Packages
 PRODUCT_PACKAGES += \
-    linker \
-    linker.vendor
+    qcom_decrypt \
+    qcom_decrypt_fbe
 
-# No A/B (seamless unsupported)
-PRODUCT_PACKAGES += \
-    otapreopt_script
+# Inherit from common TWRP setup
+$(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
+
+# Device identifiers
+PRODUCT_DEVICE := X657
+PRODUCT_NAME := omni_X657
+PRODUCT_BRAND := Infinix
+PRODUCT_MODEL := Infinix X657
+PRODUCT_MANUFACTURER := Infinix
