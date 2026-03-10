@@ -1,117 +1,49 @@
-#
-# Copyright (C) 2023 The Android Open Source Project  # Updated year, assuming generation in 2023
-# Copyright (C) 2023 SebaUbuntu's TWRP device tree generator  # Adjusted
-#
-# SPDX-License-Identifier: Apache-2.0
-#
+DEVICE_PATH := device/infinix/X657
 
-DEVICE_PATH := device/infinix/Infinix-X657
-
-# For building with minimal manifest
-ALLOW_MISSING_DEPENDENCIES := true
-
-# Architecture (32-bit MT6580)
+# Architecture
 TARGET_ARCH := arm
 TARGET_ARCH_VARIANT := armv7-a-neon
 TARGET_CPU_ABI := armeabi-v7a
 TARGET_CPU_ABI2 := armeabi
 TARGET_CPU_VARIANT := generic
-TARGET_CPU_VARIANT_RUNTIME := cortex-a7
-
-TARGET_USES_64_BIT_BINDER := false  # Corrected: MT6580 is 32-bit only
-
-# APEX (for Android 10+)
-OVERRIDE_TARGET_FLATTEN_APEX := true
-
-# Bootloader
-TARGET_BOOTLOADER_BOARD_NAME := Infinix-X657
-TARGET_NO_BOOTLOADER := true
-
-# Display (add explicit resolution for better TWRP scaling)
-TARGET_SCREEN_DENSITY := 320
-TARGET_SCREEN_HEIGHT := 1600
-TARGET_SCREEN_WIDTH := 720
-
-# Kernel
-BOARD_BOOTIMG_HEADER_VERSION := 2  # Android 10
-BOARD_KERNEL_BASE := 0x80000000
-BOARD_KERNEL_CMDLINE := bootopt=64S3,32S1,32S1 buildvariant=user
-BOARD_KERNEL_PAGESIZE := 2048
-BOARD_RAMDISK_OFFSET := 0x04000000
-BOARD_KERNEL_TAGS_OFFSET := 0x0e000000
-BOARD_MKBOOTIMG_ARGS += --header_version $(BOARD_BOOTIMG_HEADER_VERSION)
-BOARD_MKBOOTIMG_ARGS += --ramdisk_offset $(BOARD_RAMDISK_OFFSET)
-BOARD_MKBOOTIMG_ARGS += --tags_offset $(BOARD_KERNEL_TAGS_OFFSET)
-BOARD_KERNEL_IMAGE_NAME := Image
-BOARD_INCLUDE_DTB_IN_BOOTIMG := true
-BOARD_KERNEL_SEPARATED_DTBO := true
-TARGET_KERNEL_CONFIG := Infinix-X657_defconfig
-TARGET_KERNEL_SOURCE := kernel/infinix/Infinix-X657
-
-# Kernel - prebuilt (assume you have these from stock recovery.img)
-TARGET_FORCE_PREBUILT_KERNEL := true
-ifeq ($(TARGET_FORCE_PREBUILT_KERNEL),true)
-TARGET_PREBUILT_KERNEL := $(DEVICE_PATH)/prebuilt/kernel
-TARGET_PREBUILT_DTB := $(DEVICE_PATH)/prebuilt/dtb.img
-BOARD_MKBOOTIMG_ARGS += --dtb $(TARGET_PREBUILT_DTB)
-BOARD_INCLUDE_DTB_IN_BOOTIMG := 
-BOARD_PREBUILT_DTBOIMAGE := $(DEVICE_PATH)/prebuilt/dtbo.img
-BOARD_KERNEL_SEPARATED_DTBO := 
-endif
-
-# Partitions (corrected sizes from scatter file)
-BOARD_FLASH_BLOCK_SIZE := 131072  # 0x20000 from scatter
-BOARD_BOOTIMAGE_PARTITION_SIZE := 16777216  # 0x1000000
-BOARD_RECOVERYIMAGE_PARTITION_SIZE := 16777216  # 0x1000000
-BOARD_HAS_LARGE_FILESYSTEM := true
-BOARD_SYSTEMIMAGE_PARTITION_TYPE := ext4
-BOARD_USERDATAIMAGE_FILE_SYSTEM_TYPE := f2fs  # Matches fstab (/data f2fs)
-BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := ext4
-TARGET_COPY_OUT_VENDOR := vendor
-BOARD_SUPER_PARTITION_SIZE := 3263168512  # 0xc2800000 from scatter
-BOARD_SUPER_PARTITION_GROUPS := infinix_dynamic_partitions
-BOARD_INFINIX_DYNAMIC_PARTITIONS_PARTITION_LIST := system vendor product  # No odm based on scatter/fstab
-BOARD_INFINIX_DYNAMIC_PARTITIONS_SIZE := 3258974208  # Super size - 4MB overhead (0xc2800000 - 0x400000)
+TARGET_USES_64_BIT_BINDER := false
 
 # Platform
 TARGET_BOARD_PLATFORM := mt6580
+TARGET_BOOTLOADER_BOARD_NAME := x657_h8030
 
-# Recovery
-BOARD_INCLUDE_RECOVERY_DTBO := true
-TARGET_USERIMAGES_USE_EXT4 := true
-TARGET_USERIMAGES_USE_F2FS := true
+# Kernel Parameters (Extracted from your boot.img)
+BOARD_KERNEL_CMDLINE := bootopt=64S3,32S1,32S1 buildvariant=user
+BOARD_KERNEL_PAGESIZE := 2048
+BOARD_KERNEL_OFFSET := 0x00008000
+BOARD_RAMDISK_OFFSET := 0x01000000
+BOARD_TAGS_OFFSET := 0x00000100
+BOARD_MKBOOTIMG_ARGS := --ramdisk_offset $(BOARD_RAMDISK_OFFSET) --tags_offset $(BOARD_TAGS_OFFSET)
 
-# Security patch level (update to a recent one or keep stock-like)
-VENDOR_SECURITY_PATCH := 2023-01-01  # Example; use stock if known
+# Partition Sizes
+BOARD_BOOTIMG_PARTITION_SIZE := 16777216
+BOARD_RECOVERYIMAGE_PARTITION_SIZE := 16777216
+BOARD_FLASH_BLOCK_SIZE := 0x20000
 
-# Verified Boot (enable but minimal for TWRP)
-BOARD_AVB_ENABLE := true
-BOARD_AVB_MAKE_VBMETA_IMAGE_ARGS += --flags 3
-BOARD_AVB_RECOVERY_KEY_PATH := external/avb/test/data/testkey_rsa4096.pem
-BOARD_AVB_RECOVERY_ALGORITHM := SHA256_RSA4096
-BOARD_AVB_RECOVERY_ROLLBACK_INDEX := 1
-BOARD_AVB_RECOVERY_ROLLBACK_INDEX_LOCATION := 1
+# Dynamic Partitions
+BOARD_SUPER_PARTITION_SIZE := 3263168512
+BOARD_SUPER_PARTITION_GROUPS := infinix_dynamic_partitions
+BOARD_INFINIX_DYNAMIC_PARTITIONS_SIZE := 3263168512
+BOARD_INFINIX_DYNAMIC_PARTITIONS_PARTITION_LIST := system vendor product
 
-# Hack: prevent anti-rollback
-PLATFORM_SECURITY_PATCH := 2099-12-31
-VENDOR_SECURITY_PATCH := 2099-12-31
-PLATFORM_VERSION := 16.1.0
+# System-as-Root & Encryption
+BOARD_BUILD_SYSTEM_ROOT_IMAGE := true
+BOARD_USES_METADATA_PARTITION := true
+TW_INCLUDE_CRYPTO := true
+TW_INCLUDE_CRYPTO_FBE := true
+TW_INCLUDE_FBE_METADATA_DECRYPT := true
+BOARD_SUPPRESS_SECURE_ERASE := true
 
-# TWRP Configuration (added decryption and MTK/dynamic support)
-TW_THEME := portrait_hdpi  # Suitable for 720x1600
-TW_EXTRA_LANGUAGES := true
-TW_SCREEN_BLANK_ON_BOOT := true
-TW_INPUT_BLACKLIST := "hbtp_vm"
-TW_USE_TOOLBOX := true
-TW_INCLUDE_CRYPTO := true  # Enable decryption (FBE for Android 10)
-TW_INCLUDE_FBE := true  # File-Based Encryption support
-TW_HAS_MTP := true  # MTK MTP support
-TW_BRIGHTNESS_PATH := "/sys/class/leds/lcd-backlight/brightness"  # Common for MTK; adjust if wrong
+# TWRP UI Configuration
+TW_THEME := portrait_hdpi
+DEVICE_SCREEN_WIDTH := 720
+DEVICE_SCREEN_HEIGHT := 1600
+TW_BRIGHTNESS_PATH := "/sys/class/leds/lcd-backlight/brightness"
 TW_MAX_BRIGHTNESS := 255
-TW_DEFAULT_BRIGHTNESS := 128
-TARGET_USES_MKE2FS := true  # For formatting
-TW_DEVICE_VERSION := 0_Infinix-X657_Abdu  # Custom version string
-RECOVERY_SDCARD_ON_DATA := true  # For internal storage as /sdcard
-TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"  # Common for MTK
-TW_NO_USB_STORAGE := false
-TW_EXCLUDE_DEFAULT_USB_INIT := true  # MTK USB fix
+TW_DEFAULT_BRIGHTNESS := 150
+TW_EXTRA_LANGUAGES := true
