@@ -1,0 +1,11 @@
+# build.prop for recovery
+ro.build.display.id=TWRP
+ro.build.version.sdk=29
+ro.build.version.security_patch=2099-12-31
+ro.product.model=Infinix X657
+ro.product.brand=Infinix
+ro.product.name=X657
+ro.product.device=X657
+ro.product.board=mt6580
+ro.hardware=mt6580
+ro.product.manufacturer=INFINIX MOBILITY LIMITED
