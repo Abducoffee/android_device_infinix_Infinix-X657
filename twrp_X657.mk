@@ -5,7 +5,7 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/base.mk)
 $(call inherit-product, device/infinix/Infinix-X657/device.mk)
 
 # Inherit TWRP config (twrp-11.0 uses vendor/omni)
-$(call inherit-product, vendor/omni/config/common.mk)
+$(call inherit-product, vendor/twrp/config/common.mk)
 
 # Device identifiers
 PRODUCT_DEVICE := X657
