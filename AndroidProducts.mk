@@ -1,4 +1,2 @@
-# File: AndroidProducts.mk
-
 PRODUCT_MAKEFILES := \
     $(LOCAL_DIR)/twrp_X657.mk
