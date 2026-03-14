@@ -1,17 +1,24 @@
-# Dynamic Partition Support
+# File: device.mk
+
+LOCAL_PATH := device/infinix/Infinix-X657
+
+# Dynamic Partitions
 PRODUCT_USE_DYNAMIC_PARTITIONS := true
 
-# Decryption Packages
+# API Level (Android 10 = API 29)
+PRODUCT_SHIPPING_API_LEVEL := 29
+
+# Fastbootd
 PRODUCT_PACKAGES += \
-    qcom_decrypt \
-    qcom_decrypt_fbe
+    android.hardware.fastboot@1.0-impl-mock \
+    fastbootd
 
-# Inherit from common TWRP setup
-$(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
+# Additional binaries
+PRODUCT_PACKAGES += \
+    libion \
+    libhidltransport \
+    libhwbinder
 
-# Device identifiers
-PRODUCT_DEVICE := X657
-PRODUCT_NAME := omni_X657
-PRODUCT_BRAND := Infinix
-PRODUCT_MODEL := Infinix X657
-PRODUCT_MANUFACTURER := Infinix
+# Soong namespaces
+PRODUCT_SOONG_NAMESPACES += \
+    $(LOCAL_PATH)
