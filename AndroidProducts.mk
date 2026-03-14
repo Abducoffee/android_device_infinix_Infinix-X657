@@ -1,4 +1,4 @@
 # File: AndroidProducts.mk
 
 PRODUCT_MAKEFILES := \
-    $(LOCAL_DIR)/twrp_Infinix-X657.mk
+    $(LOCAL_DIR)/twrp_X657.mk
