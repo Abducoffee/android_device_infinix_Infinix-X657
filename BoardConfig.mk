@@ -1,49 +1,126 @@
-DEVICE_PATH := device/infinix/X657
+# File: BoardConfig.mk
 
-# Architecture
+DEVICE_PATH := device/infinix/Infinix-X657
+
+# =============================================
+# Architecture - MT6580 is 32-bit ONLY
+# =============================================
 TARGET_ARCH := arm
 TARGET_ARCH_VARIANT := armv7-a-neon
 TARGET_CPU_ABI := armeabi-v7a
 TARGET_CPU_ABI2 := armeabi
-TARGET_CPU_VARIANT := generic
-TARGET_USES_64_BIT_BINDER := false
+TARGET_CPU_VARIANT := cortex-a7
+TARGET_CPU_VARIANT_RUNTIME := cortex-a7
 
+# =============================================
 # Platform
+# =============================================
 TARGET_BOARD_PLATFORM := mt6580
-TARGET_BOOTLOADER_BOARD_NAME := x657_h8030
+TARGET_BOOTLOADER_BOARD_NAME := mt6580
+TARGET_NO_BOOTLOADER := true
 
-# Kernel Parameters (Extracted from your boot.img)
-BOARD_KERNEL_CMDLINE := bootopt=64S3,32S1,32S1 buildvariant=user
+# =============================================
+# Kernel
+# =============================================
+BOARD_KERNEL_CMDLINE := bootopt=64S3,32S1,32S1
+BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive
+
+BOARD_KERNEL_BASE := 0x80000000
 BOARD_KERNEL_PAGESIZE := 2048
 BOARD_KERNEL_OFFSET := 0x00008000
-BOARD_RAMDISK_OFFSET := 0x01000000
-BOARD_TAGS_OFFSET := 0x00000100
-BOARD_MKBOOTIMG_ARGS := --ramdisk_offset $(BOARD_RAMDISK_OFFSET) --tags_offset $(BOARD_TAGS_OFFSET)
+BOARD_RAMDISK_OFFSET := 0x04000000
+BOARD_KERNEL_TAGS_OFFSET := 0x0e000000
+BOARD_DTB_OFFSET := 0x0e000000
 
-# Partition Sizes
-BOARD_BOOTIMG_PARTITION_SIZE := 16777216
+BOARD_BOOTIMG_HEADER_VERSION := 2
+BOARD_INCLUDE_DTB_IN_BOOTIMG := true
+
+BOARD_MKBOOTIMG_ARGS += --ramdisk_offset $(BOARD_RAMDISK_OFFSET)
+BOARD_MKBOOTIMG_ARGS += --tags_offset $(BOARD_KERNEL_TAGS_OFFSET)
+BOARD_MKBOOTIMG_ARGS += --dtb_offset $(BOARD_DTB_OFFSET)
+BOARD_MKBOOTIMG_ARGS += --header_version $(BOARD_BOOTIMG_HEADER_VERSION)
+BOARD_MKBOOTIMG_ARGS += --kernel_offset $(BOARD_KERNEL_OFFSET)
+
+# Prebuilt kernel
+TARGET_PREBUILT_KERNEL := $(DEVICE_PATH)/prebuilt/kernel
+BOARD_PREBUILT_DTBIMAGE_DIR := $(DEVICE_PATH)/prebuilt/dtb
+BOARD_PREBUILT_DTBOIMAGE := $(DEVICE_PATH)/prebuilt/dtbo.img
+
+# =============================================
+# Partitions (from scatter file)
+# =============================================
+BOARD_FLASH_BLOCK_SIZE := 131072
+BOARD_BOOTIMAGE_PARTITION_SIZE := 16777216
 BOARD_RECOVERYIMAGE_PARTITION_SIZE := 16777216
-BOARD_FLASH_BLOCK_SIZE := 0x20000
+BOARD_CACHEIMAGE_PARTITION_SIZE := 310378496
+BOARD_DTBOIMAGE_PARTITION_SIZE := 8388608
 
 # Dynamic Partitions
-BOARD_SUPER_PARTITION_SIZE := 3263168512
+BOARD_SUPER_PARTITION_SIZE := 3265462272
 BOARD_SUPER_PARTITION_GROUPS := infinix_dynamic_partitions
-BOARD_INFINIX_DYNAMIC_PARTITIONS_SIZE := 3263168512
-BOARD_INFINIX_DYNAMIC_PARTITIONS_PARTITION_LIST := system vendor product
+BOARD_INFINIX_DYNAMIC_PARTITIONS_SIZE := 3261267968
+BOARD_INFINIX_DYNAMIC_PARTITIONS_PARTITION_LIST := \
+    system \
+    vendor \
+    product
 
-# System-as-Root & Encryption
-BOARD_BUILD_SYSTEM_ROOT_IMAGE := true
-BOARD_USES_METADATA_PARTITION := true
-TW_INCLUDE_CRYPTO := true
-TW_INCLUDE_CRYPTO_FBE := true
-TW_INCLUDE_FBE_METADATA_DECRYPT := true
+# =============================================
+# File Systems
+# =============================================
+BOARD_SYSTEMIMAGE_FILE_SYSTEM_TYPE := ext4
+BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := ext4
+BOARD_PRODUCTIMAGE_FILE_SYSTEM_TYPE := ext4
+BOARD_USERDATAIMAGE_FILE_SYSTEM_TYPE := ext4
+BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE := ext4
+
+TARGET_USERIMAGES_USE_EXT4 := true
+TARGET_USERIMAGES_USE_F2FS := true
+
+TARGET_COPY_OUT_VENDOR := vendor
+TARGET_COPY_OUT_PRODUCT := product
+
+# =============================================
+# Recovery
+# =============================================
+BOARD_HAS_LARGE_FILESYSTEM := true
+BOARD_HAS_NO_SELECT_BUTTON := true
 BOARD_SUPPRESS_SECURE_ERASE := true
+TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
+BOARD_USES_RECOVERY_AS_BOOT := false
+BOARD_BUILD_SYSTEM_ROOT_IMAGE := false
+BOARD_USES_METADATA_PARTITION := true
 
-# TWRP UI Configuration
+# =============================================
+# TWRP Configuration
+# =============================================
 TW_THEME := portrait_hdpi
-DEVICE_SCREEN_WIDTH := 720
-DEVICE_SCREEN_HEIGHT := 1600
+RECOVERY_SDCARD_ON_DATA := true
+TW_EXCLUDE_DEFAULT_USB_INIT := true
+TW_USE_TOOLBOX := true
+TW_INCLUDE_CRYPTO := true
+TW_INCLUDE_CRYPTO_FBE := false
 TW_BRIGHTNESS_PATH := "/sys/class/leds/lcd-backlight/brightness"
 TW_MAX_BRIGHTNESS := 255
 TW_DEFAULT_BRIGHTNESS := 150
+TW_SCREEN_BLANK_ON_BOOT := true
+TW_INPUT_BLACKLIST := "hbtp_vm"
 TW_EXTRA_LANGUAGES := true
+TW_INCLUDE_NTFS_3G := true
+TW_INCLUDE_FUSE_EXFAT := true
+TARGET_USES_MKE2FS := true
+TW_NO_BATT_PERCENT := false
+TW_EXCLUDE_TWRPAPP := true
+TW_EXCLUDE_APEX := true
+TW_INCLUDE_REPACKTOOLS := true
+TW_INCLUDE_RESETPROP := true
+TW_INCLUDE_LIBRESETPROP := true
+
+# Logcat
+TWRP_INCLUDE_LOGCAT := true
+TARGET_USES_LOGD := true
+
+# Security patch
+PLATFORM_SECURITY_PATCH := 2099-12-31
+VENDOR_SECURITY_PATCH := 2099-12-31
+PLATFORM_VERSION := 16.1.0
+PLATFORM_VERSION_LAST_STABLE := $(PLATFORM_VERSION)
