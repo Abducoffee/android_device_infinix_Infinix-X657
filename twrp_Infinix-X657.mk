@@ -1,6 +1,6 @@
 # File: twrp_Infinix-X657.mk
 
-# Inherit base - NO 64-bit (MT6580 is 32-bit only)
+# Inherit base
 $(call inherit-product, $(SRC_TARGET_DIR)/product/base.mk)
 
 # Inherit device config
