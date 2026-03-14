@@ -1,4 +1,4 @@
-# File: BoardConfig.mk
+# BoardConfig.mk - Infinix X657 (MT6580)
 
 DEVICE_PATH := device/infinix/Infinix-X657
 
@@ -11,6 +11,7 @@ TARGET_CPU_ABI := armeabi-v7a
 TARGET_CPU_ABI2 := armeabi
 TARGET_CPU_VARIANT := cortex-a7
 TARGET_CPU_VARIANT_RUNTIME := cortex-a7
+TARGET_IS_64_BIT := false
 
 # =============================================
 # Platform
@@ -41,13 +42,12 @@ BOARD_MKBOOTIMG_ARGS += --dtb_offset $(BOARD_DTB_OFFSET)
 BOARD_MKBOOTIMG_ARGS += --header_version $(BOARD_BOOTIMG_HEADER_VERSION)
 BOARD_MKBOOTIMG_ARGS += --kernel_offset $(BOARD_KERNEL_OFFSET)
 
-# Prebuilt kernel
 TARGET_PREBUILT_KERNEL := $(DEVICE_PATH)/prebuilt/kernel
 BOARD_PREBUILT_DTBIMAGE_DIR := $(DEVICE_PATH)/prebuilt/dtb
 BOARD_PREBUILT_DTBOIMAGE := $(DEVICE_PATH)/prebuilt/dtbo.img
 
 # =============================================
-# Partitions (from scatter file)
+# Partitions (from scatter)
 # =============================================
 BOARD_FLASH_BLOCK_SIZE := 131072
 BOARD_BOOTIMAGE_PARTITION_SIZE := 16777216
@@ -85,41 +85,115 @@ TARGET_COPY_OUT_PRODUCT := product
 BOARD_HAS_LARGE_FILESYSTEM := true
 BOARD_HAS_NO_SELECT_BUTTON := true
 BOARD_SUPPRESS_SECURE_ERASE := true
-TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
 BOARD_USES_RECOVERY_AS_BOOT := false
 BOARD_BUILD_SYSTEM_ROOT_IMAGE := false
 BOARD_USES_METADATA_PARTITION := true
 
 # =============================================
-# TWRP Configuration
+# AVB
+# =============================================
+BOARD_AVB_ENABLE := true
+BOARD_AVB_VBMETA_SYSTEM := system product
+BOARD_AVB_VBMETA_SYSTEM_KEY_PATH := external/avb/test/data/testkey_rsa2048.pem
+BOARD_AVB_VBMETA_SYSTEM_ALGORITHM := SHA256_RSA2048
+BOARD_AVB_VBMETA_SYSTEM_ROLLBACK_INDEX := $(PLATFORM_SECURITY_PATCH_TIMESTAMP)
+BOARD_AVB_VBMETA_SYSTEM_ROLLBACK_INDEX_LOCATION := 1
+BOARD_AVB_VBMETA_VENDOR := vendor
+BOARD_AVB_VBMETA_VENDOR_KEY_PATH := external/avb/test/data/testkey_rsa2048.pem
+BOARD_AVB_VBMETA_VENDOR_ALGORITHM := SHA256_RSA2048
+BOARD_AVB_VBMETA_VENDOR_ROLLBACK_INDEX := $(PLATFORM_SECURITY_PATCH_TIMESTAMP)
+BOARD_AVB_VBMETA_VENDOR_ROLLBACK_INDEX_LOCATION := 2
+BOARD_AVB_RECOVERY_KEY_PATH := external/avb/test/data/testkey_rsa2048.pem
+BOARD_AVB_RECOVERY_ALGORITHM := SHA256_RSA2048
+BOARD_AVB_RECOVERY_ROLLBACK_INDEX := $(PLATFORM_SECURITY_PATCH_TIMESTAMP)
+BOARD_AVB_RECOVERY_ROLLBACK_INDEX_LOCATION := 3
+
+# =============================================
+# Display
 # =============================================
 TW_THEME := portrait_hdpi
-RECOVERY_SDCARD_ON_DATA := true
-TW_EXCLUDE_DEFAULT_USB_INIT := true
-TW_USE_TOOLBOX := true
-TW_INCLUDE_CRYPTO := true
-TW_INCLUDE_CRYPTO_FBE := false
+DEVICE_SCREEN_WIDTH := 720
+DEVICE_SCREEN_HEIGHT := 1600
+TARGET_SCREEN_WIDTH := 720
+TARGET_SCREEN_HEIGHT := 1600
+TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
+TW_Y_OFFSET := 80
+TW_H_OFFSET := -80
+TW_ROTATION := 0
+
+# =============================================
+# Brightness
+# =============================================
 TW_BRIGHTNESS_PATH := "/sys/class/leds/lcd-backlight/brightness"
 TW_MAX_BRIGHTNESS := 255
 TW_DEFAULT_BRIGHTNESS := 150
 TW_SCREEN_BLANK_ON_BOOT := true
+
+# =============================================
+# Touch / Input
+# =============================================
 TW_INPUT_BLACKLIST := "hbtp_vm"
+
+# =============================================
+# USB
+# =============================================
+TW_EXCLUDE_DEFAULT_USB_INIT := true
+TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/platform/mt_usb/musb-hdrc.0.auto/gadget/lun%d/file
+TW_MTP_DEVICE := /dev/mtp_usb
+TW_HAS_MTP := true
+
+# =============================================
+# Storage
+# =============================================
+RECOVERY_SDCARD_ON_DATA := true
+TW_INTERNAL_STORAGE_PATH := "/data/media/0"
+TW_INTERNAL_STORAGE_MOUNT_POINT := "data"
+TW_EXTERNAL_STORAGE_PATH := "/sdcard1"
+TW_EXTERNAL_STORAGE_MOUNT_POINT := "sdcard1"
+TW_DEFAULT_EXTERNAL_STORAGE := true
+
+# =============================================
+# Encryption
+# =============================================
+TW_INCLUDE_CRYPTO := true
+TW_INCLUDE_CRYPTO_FBE := false
+TW_INCLUDE_FBE_METADATA_DECRYPT := false
+TW_PREPARE_DATA_MEDIA_EARLY := true
+
+# =============================================
+# AVB in TWRP
+# =============================================
+TW_INCLUDE_VBMETA := true
+
+# =============================================
+# Features
+# =============================================
 TW_EXTRA_LANGUAGES := true
+TW_DEFAULT_LANGUAGE := en
 TW_INCLUDE_NTFS_3G := true
 TW_INCLUDE_FUSE_EXFAT := true
+TW_INCLUDE_FUSE_NTFS := true
 TARGET_USES_MKE2FS := true
-TW_NO_BATT_PERCENT := false
-TW_EXCLUDE_TWRPAPP := true
-TW_EXCLUDE_APEX := true
 TW_INCLUDE_REPACKTOOLS := true
 TW_INCLUDE_RESETPROP := true
 TW_INCLUDE_LIBRESETPROP := true
+TW_USE_TOOLBOX := true
+TW_EXCLUDE_TWRPAPP := true
+TW_EXCLUDE_APEX := true
+TW_NO_BATT_PERCENT := false
+TW_NO_FLASH_CURRENT_TWRP := false
+TW_HAS_DOWNLOAD_MODE := false
+TW_DEVICE_VERSION := Infinix_X657
 
-# Logcat
+# =============================================
+# Debugging
+# =============================================
 TWRP_INCLUDE_LOGCAT := true
 TARGET_USES_LOGD := true
 
-# Fix platform
+# =============================================
+# Security / Version
+# =============================================
 PLATFORM_VERSION := 99.87.36
 PLATFORM_VERSION_LAST_STABLE := $(PLATFORM_VERSION)
 PLATFORM_SECURITY_PATCH := 2099-12-31
