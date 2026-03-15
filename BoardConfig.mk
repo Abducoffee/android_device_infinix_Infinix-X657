@@ -94,6 +94,7 @@ BOARD_USES_METADATA_PARTITION := true
 # =============================================
 BOARD_AVB_ENABLE := true
 BOARD_AVB_MAKE_VBMETA_IMAGE_ARGS += --flags 3
+TW_USE_FSCRYPT_POLICY := 2
 
 # =============================================
 # Display
@@ -155,6 +156,7 @@ TW_INCLUDE_VBMETA := true
 # =============================================
 # Features
 # =============================================
+TW_INCLUDE_FASTBOOTD := true
 TW_EXTRA_LANGUAGES := true
 TW_DEFAULT_LANGUAGE := en
 TW_INCLUDE_NTFS_3G := true
