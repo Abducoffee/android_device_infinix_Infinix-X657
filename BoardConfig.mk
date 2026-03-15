@@ -186,6 +186,8 @@ TW_EXCLUDE_APEX := true
 TW_EXCLUDE_BASH :=true
 TW_NO_BATT_PERCENT := false
 TW_DEVICE_VERSION := X657
+TWRP_INCLUDE_LOGCAT := false
+TARGET_USES_LOGD := false
 
 # =============================================
 # Debugging
