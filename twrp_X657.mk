@@ -11,5 +11,5 @@ $(call inherit-product, vendor/twrp/config/common.mk)
 PRODUCT_DEVICE := X657
 PRODUCT_NAME := twrp_X657
 PRODUCT_BRAND := Infinix
-PRODUCT_MODEL := Infinix X657
+PRODUCT_MODEL := X657
 PRODUCT_MANUFACTURER := INFINIX MOBILITY LIMITED
