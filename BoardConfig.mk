@@ -1,5 +1,8 @@
 # BoardConfig.mk - Infinix X657 (MT6580)
 
+# Force LZMA compression for maximum space saving
+BOARD_RAMDISK_USE_LZMA := true
+
 DEVICE_PATH := device/infinix/X657
 
 # =============================================
