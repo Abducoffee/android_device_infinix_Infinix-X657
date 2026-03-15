@@ -2,6 +2,8 @@
 
 # Force LZMA compression for maximum space saving
 BOARD_RAMDISK_USE_LZMA := true
+LZMA_RAMDISK_TARGETS := recovery
+BOARD_COMPRESS_RAMDISK := true
 
 DEVICE_PATH := device/infinix/X657
 
