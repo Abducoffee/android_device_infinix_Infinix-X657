@@ -171,7 +171,7 @@ TW_INCLUDE_VBMETA := true
 # =============================================
 # Features
 # =============================================
-TW_INCLUDE_FASTBOOTD := true
+TW_INCLUDE_FASTBOOTD := false
 TW_EXTRA_LANGUAGES := false
 TW_DEFAULT_LANGUAGE := en
 TW_INCLUDE_NTFS_3G := true
