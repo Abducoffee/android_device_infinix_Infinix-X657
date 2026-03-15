@@ -140,8 +140,6 @@ TW_EXTERNAL_STORAGE_PATH := "/sdcard1"
 TW_EXTERNAL_STORAGE_MOUNT_POINT := "sdcard1"
 TW_DEFAULT_EXTERNAL_STORAGE := true
 
-# Force LZMA compression for maximum space saving
-BOARD_RAMDISK_USE_LZMA := true
 # =============================================
 # Encryption
 # =============================================
@@ -159,7 +157,7 @@ TW_INCLUDE_VBMETA := true
 # Features
 # =============================================
 TW_INCLUDE_FASTBOOTD := true
-TW_EXTRA_LANGUAGES := true
+TW_EXTRA_LANGUAGES := false
 TW_DEFAULT_LANGUAGE := en
 TW_INCLUDE_NTFS_3G := true
 TW_INCLUDE_FUSE_EXFAT := true
@@ -174,7 +172,7 @@ TW_EXCLUDE_APEX := true
 TW_NO_BATT_PERCENT := false
 TW_NO_FLASH_CURRENT_TWRP := false
 TW_HAS_DOWNLOAD_MODE := false
-TW_DEVICE_VERSION := Infinix_X657
+TW_DEVICE_VERSION := X657
 
 # =============================================
 # Debugging
