@@ -1,6 +1,6 @@
 # BoardConfig.mk - Infinix X657 (MT6580)
 
-DEVICE_PATH := device/infinix/Infinix-X657
+DEVICE_PATH := device/infinix/X657
 
 # =============================================
 # Architecture - MT6580 is 32-bit ONLY
