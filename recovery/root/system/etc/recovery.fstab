@@ -1,39 +1,23 @@
-# Android fstab file
-# mount_point  fstype  device  device2  flags
+# Dynamic partitions
+/system         ext4    system      flags=display=System;logical
+/vendor         ext4    vendor      flags=display=Vendor;logical
+/product        ext4    product     flags=display=Product;logical
 
-# Dynamic partitions (logical inside super)
-system       /system        ext4   ro,barrier=1   wait,avb=vbmeta_system,logical,first_stage_mount,avb_keys=/avb
-vendor       /vendor        ext4   ro,barrier=1   wait,avb=vbmeta_vendor,logical,first_stage_mount
-product      /product       ext4   ro,barrier=1   wait,avb=vbmeta_system,logical,first_stage_mount
+# Metadata
+/metadata       ext4    /dev/block/platform/bootdevice/by-name/md_udc
 
-# Core partitions
-/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/metadata    /metadata    ext4   noatime,nosuid,nodev,discard   wait,check,formattable,first_stage_mount
-/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/userdata    /data        ext4   noatime,nosuid,nodev,discard,noauto_da_alloc   wait,check,formattable,length=-16384
-/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/cache       /cache       ext4   noatime,nosuid,nodev,discard   wait,check
+# User partitions
+/data           f2fs    /dev/block/platform/bootdevice/by-name/userdata    flags=display=Data;encryptable=footer
+/cache          ext4    /dev/block/platform/bootdevice/by-name/cache       flags=display=Cache
 
-# Protected partitions
-/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/protect1    /protect_f   ext4   noatime,nosuid,nodev   wait
-/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/protect2    /protect_s   ext4   noatime,nosuid,nodev   wait
-/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/persist     /persist     ext4   noatime,nosuid,nodev   wait
-/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/nvdata      /nvdata      ext4   noatime,nosuid,nodev   wait
+# Boot partitions
+/boot           emmc    /dev/block/platform/bootdevice/by-name/boot
+/recovery       emmc    /dev/block/platform/bootdevice/by-name/recovery
 
-# EMMC partitions
-/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/boot        /boot        emmc   defaults   defaults
-/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/recovery    /recovery    emmc   defaults   defaults
-/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/lk          /lk          emmc   defaults   defaults
-/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/lk2         /lk2         emmc   defaults   defaults
-/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/logo        /logo        emmc   defaults   defaults
-/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/tee1        /tee1        emmc   defaults   defaults
-/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/tee2        /tee2        emmc   defaults   defaults
-/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/dtbo        /dtbo        emmc   defaults   defaults
-/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/secro       /secro       emmc   defaults   defaults
-/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/nvram       /nvram       emmc   defaults   defaults
-/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/proinfo     /proinfo     emmc   defaults   defaults
-/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/vbmeta             /vbmeta             emmc   defaults   defaults
-/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/vbmeta_system      /vbmeta_system      emmc   defaults   defaults
-/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/vbmeta_vendor      /vbmeta_vendor      emmc   defaults   defaults
-/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/tranfs      /tranfs      ext4   noatime,nosuid,nodev   wait
+# Device specific
+/persist        ext4    /dev/block/platform/bootdevice/by-name/persist     flags=display=Persist
+/nvdata         ext4    /dev/block/platform/bootdevice/by-name/nvdata      flags=display=NVData
 
-# Removable storage
-/dev/block/mmcblk1p1    /sdcard1    auto   defaults   voldmanaged=sdcard1:auto
-/dev/block/sda1         /usb-otg    auto   defaults   voldmanaged=usb:auto
+# External storage
+/external_sd    vfat    /dev/block/mmcblk1p1    flags=display=SDCard;storage;removable
+/usb-otg        vfat    /dev/block/sda1         flags=display=USBOTG;storage;removable
