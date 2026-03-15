@@ -1,5 +1,4 @@
 # BoardConfig.mk - Infinix X657 (MT6580)
-TARGET_USES_64_BIT_BINDER := true
 
 DEVICE_PATH := device/infinix/X657
 
