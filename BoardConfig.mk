@@ -3,11 +3,6 @@
 # Force LZMA compression for maximum space saving
 BOARD_RAMDISK_USE_LZMA := true
 
-# For building with minimal manifest
-ALLOW_MISSING_DEPENDENCIES := true
-BUILD_BROKEN_DUP_RULES := true
-BUILD_BROKEN_ELF_PREBUILT_PRODUCT_COPY_FILES := true
-
 DEVICE_PATH := device/infinix/X657
 
 # =============================================
@@ -183,7 +178,8 @@ TW_INCLUDE_NTFS_3G := true
 TW_INCLUDE_REPACKTOOLS := true
 TW_INCLUDE_RESETPROP := true
 TW_INCLUDE_LIBRESETPROP := true
-TW_USE_TOOLBOX := true
+TW_USE_TOOLBOX := false
+TW_USE_BUSYBOX := true
 TW_NO_SCREEN_BLANK := true
 TW_EXCLUDE_TWRPAPP := true
 TW_EXCLUDE_APEX := true
