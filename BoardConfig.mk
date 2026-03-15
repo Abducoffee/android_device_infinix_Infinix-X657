@@ -11,7 +11,6 @@ TARGET_CPU_ABI := armeabi-v7a
 TARGET_CPU_ABI2 := armeabi
 TARGET_CPU_VARIANT := cortex-a7
 TARGET_CPU_VARIANT_RUNTIME := cortex-a7
-TARGET_IS_64_BIT := false
 
 # =============================================
 # Platform
