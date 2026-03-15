@@ -156,8 +156,8 @@ TW_DEFAULT_EXTERNAL_STORAGE := true
 # Encryption
 # =============================================
 TW_INCLUDE_CRYPTO := true
-TW_INCLUDE_CRYPTO_FBE := false
-TW_INCLUDE_FBE_METADATA_DECRYPT := false
+TW_INCLUDE_CRYPTO_FBE := true
+TW_INCLUDE_FBE_METADATA_DECRYPT := true
 TW_PREPARE_DATA_MEDIA_EARLY := true
 
 # =============================================
