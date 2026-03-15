@@ -140,6 +140,8 @@ TW_EXTERNAL_STORAGE_PATH := "/sdcard1"
 TW_EXTERNAL_STORAGE_MOUNT_POINT := "sdcard1"
 TW_DEFAULT_EXTERNAL_STORAGE := true
 
+# Force LZMA compression for maximum space saving
+BOARD_RAMDISK_USE_LZMA := true
 # =============================================
 # Encryption
 # =============================================
