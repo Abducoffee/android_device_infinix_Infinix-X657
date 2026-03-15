@@ -1,4 +1,4 @@
-LOCAL_PATH := device/infinix/Infinix-X657
+LOCAL_PATH := device/infinix/X657
 
 # Dynamic Partitions
 PRODUCT_USE_DYNAMIC_PARTITIONS := true
