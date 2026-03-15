@@ -133,7 +133,6 @@ TW_BRIGHTNESS_PATH := "/sys/class/leds/lcd-backlight/brightness"
 TW_MAX_BRIGHTNESS := 255
 TW_DEFAULT_BRIGHTNESS := 150
 TW_SCREEN_BLANK_ON_BOOT := true
-TW_EXCLUDE_ENCRYPTED_BACKUPS := true
 
 # =============================================
 # Touch / Input
