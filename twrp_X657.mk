@@ -24,21 +24,11 @@ PRODUCT_USE_DYNAMIC_PARTITIONS := true
 # API Level (Android 10 = 29)
 PRODUCT_SHIPPING_API_LEVEL := 27
 
-# Fastbootd (required for dynamic partitions)
-PRODUCT_PACKAGES += \
-    android.hardware.fastboot@1.0-impl-mock \
-    fastbootd
-
 # Additional libraries
 PRODUCT_PACKAGES += \
     libion \
     libhidltransport \
     libhwbinder
-
-# Encryption libraries
-PRODUCT_PACKAGES += \
-    qcom_decrypt \
-    qcom_decrypt_fbe
 
 # HIDL packages needed for recovery
 PRODUCT_PACKAGES += \
