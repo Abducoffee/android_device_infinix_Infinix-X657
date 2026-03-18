@@ -1,9 +1,6 @@
 # BoardConfig.mk - Infinix X657 (MT6580)
 
-# Force LZMA compression for maximum space saving
-BOARD_RAMDISK_USE_LZMA := true
-
-DEVICE_PATH := device/infinix/X657
+DEVICE_PATH := device/infinix/Infinix-X657
 
 # =============================================
 # Architecture - MT6580 is 32-bit ONLY
@@ -14,7 +11,9 @@ TARGET_CPU_ABI := armeabi-v7a
 TARGET_CPU_ABI2 := armeabi
 TARGET_CPU_VARIANT := cortex-a7
 TARGET_CPU_VARIANT_RUNTIME := cortex-a7
+TARGET_IS_64_BIT := false
 TARGET_USES_64_BIT_BINDER := true
+LZMA_RAMDISK_TARGETS := recovery
 
 # =============================================
 # Platform
@@ -171,29 +170,35 @@ TW_INCLUDE_VBMETA := true
 # =============================================
 # Features
 # =============================================
-TW_INCLUDE_FASTBOOTD := false
 TW_EXTRA_LANGUAGES := false
+TW_INCLUDE_FASTBOOTD := true
 TW_DEFAULT_LANGUAGE := en
-TW_INCLUDE_NTFS_3G := false
-TW_INCLUDE_REPACKTOOLS := true
-TW_INCLUDE_RESETPROP := true
-TW_INCLUDE_LIBRESETPROP := true
-TW_USE_TOOLBOX := false
+TW_INCLUDE_FB2PNG := false
+TW_INCLUDE_NTFS_3G := true
+TW_INCLUDE_FUSE_EXFAT := true
+TW_INCLUDE_FUSE_NTFS := true
+TARGET_USES_MKE2FS := true
+TW_INCLUDE_REPACKTOOLS := false
+TW_INCLUDE_RESETPROP := false
+TW_INCLUDE_LIBRESETPROP := false
 TW_USE_BUSYBOX := true
-TW_NO_SCREEN_BLANK := true
 TW_EXCLUDE_TWRPAPP := true
 TW_EXCLUDE_APEX := true
-TW_EXCLUDE_BASH := true
 TW_NO_BATT_PERCENT := false
+TW_HAS_DOWNLOAD_MODE := false
 TW_DEVICE_VERSION := X657
-TWRP_INCLUDE_LOGCAT := false
-TARGET_USES_LOGD := false
+TW_EXCLUDE_PYTHON := true
+TW_EXCLUDE_NANO := true
+TW_EXCLUDE_BASH := true
+TW_EXCLUDE_TZDATA := true
+TW_EXCLUDE_LPTOOLS := true
+TW_EXCLUDE_LPDUMP := true
 
 # =============================================
 # Debugging
 # =============================================
-TWRP_INCLUDE_LOGCAT := true
-TARGET_USES_LOGD := true
+TWRP_INCLUDE_LOGCAT := false
+TARGET_USES_LOGD := false
 
 # =============================================
 # Security / Version
