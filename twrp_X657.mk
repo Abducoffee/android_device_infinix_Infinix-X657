@@ -4,13 +4,6 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/base.mk)
 # Inherit TWRP config (twrp-11.0 uses vendor/omni)
 $(call inherit-product, vendor/twrp/config/common.mk)
 
-# Auto detect TWRP version
-ifeq ($(wildcard vendor/twrp/config/common.mk),vendor/twrp/config/common.mk)
-    $(call inherit-product, vendor/twrp/config/common.mk)
-else ifeq ($(wildcard vendor/omni/config/common.mk),vendor/omni/config/common.mk)
-    $(call inherit-product, vendor/omni/config/common.mk)
-endif
-
 # Device identifiers
 PRODUCT_DEVICE := X657
 PRODUCT_NAME := twrp_X657
