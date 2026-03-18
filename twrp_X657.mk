@@ -24,6 +24,11 @@ PRODUCT_USE_DYNAMIC_PARTITIONS := true
 # API Level (Android 10 = 29)
 PRODUCT_SHIPPING_API_LEVEL := 27
 
+# Fastbootd (required for dynamic partitions)
+PRODUCT_PACKAGES += \
+    android.hardware.fastboot@1.0-impl-mock \
+    fastbootd
+
 # Additional libraries
 PRODUCT_PACKAGES += \
     libion \
@@ -34,10 +39,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     libkeymaster4 \
     libkeymaster41
-
-# tzdata
-PRODUCT_PACKAGES += \
-    tzdata_twrp
 
 # Soong namespaces
 PRODUCT_SOONG_NAMESPACES += \
