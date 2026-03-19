@@ -39,22 +39,6 @@ BOARD_MKBOOTIMG_ARGS += --kernel_offset $(BOARD_KERNEL_OFFSET)
 # System as root
 BOARD_SUPPRESS_SECURE_ERASE := true
 
-# =============================================
-# OrangeFox Specific Configuration
-# =============================================
-FOX_MANIFEST_BRANCH := 11.0
-FOX_BUILD_DEVICE := X657
-FOX_VARIANT := vanilla
-FOX_BUGGED_AOSP_ARB_WORKAROUND := true
-FOX_DELETE_AROMAFM := true
-FOX_ENABLE_LABELS := true
-FOX_USE_SPECIFIC_MAGISK_ZIP :=  # Optional, leave empty if not using
-
-# Add to your BoardConfig.mk
-PB_DISABLE_DEFAULT_THEME := true
-PB_TORCH_PATH := "/sys/class/leds/flashlight/brightness"
-PB_FORCE_DD_FLASH := TRUE
-
 # AVB
 BOARD_AVB_ENABLE := true
 BOARD_AVB_RECOVERY_ALGORITHM := SHA256_RSA2048
