@@ -42,7 +42,7 @@ BOARD_SUPPRESS_SECURE_ERASE := true
 # =============================================
 # OrangeFox Specific Configuration
 # =============================================
-FOX_MANIFEST_BRANCH := 12.1
+FOX_MANIFEST_BRANCH := 11.0
 FOX_BUILD_DEVICE := X657
 FOX_VARIANT := vanilla
 FOX_BUGGED_AOSP_ARB_WORKAROUND := true
