@@ -4,7 +4,7 @@
 /product        ext4    product     flags=display="Product";logical;first_stage_mount;avb=vbmeta_system
 
 # Metadata
-/metadata       ext4    /dev/block/platform/bootdevice/by-name/metadata    flags=display="Metadata"
+/metadata       ext4    /dev/block/platform/bootdevice/by-name/md_udc    flags=display="Metadata"
 
 # AVB partitions
 /vbmeta         emmc    /dev/block/platform/bootdevice/by-name/vbmeta         flags=display="VBMeta";backup=1;flashimg=1
