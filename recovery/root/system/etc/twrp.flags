@@ -20,8 +20,6 @@
 /recovery       emmc    /dev/block/platform/bootdevice/by-name/recovery    flags=display="recovery";backup=1;flashimg=1
 
 # Device specific
-/persist        ext4    /dev/block/platform/bootdevice/by-name/persist     flags=display=Persist
-/nvdata         ext4    /dev/block/platform/bootdevice/by-name/nvdata      flags=display=NVData
 /nvram          emmc    /dev/block/platform/bootdevice/by-name/nvram          flags=display="NVRAM";backup=1;flashimg=1
 /nvdata         ext4    /dev/block/platform/bootdevice/by-name/nvdata         flags=display="NVData";backup=1
 /proinfo        emmc    /dev/block/platform/bootdevice/by-name/proinfo        flags=display="ProInfo";backup=1
