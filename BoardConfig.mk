@@ -47,6 +47,10 @@ FOX_BUGGED_AOSP_ARB_WORKAROUND := true
 FOX_DELETE_AROMAFM := true
 FOX_ENABLE_LABELS := true
 
+# Add to your BoardConfig.mk
+PB_DISABLE_DEFAULT_THEME := true
+PB_TORCH_PATH := "/sys/class/leds/flashlight/brightness"
+
 # AVB
 BOARD_AVB_ENABLE := true
 BOARD_AVB_RECOVERY_ALGORITHM := SHA256_RSA2048
