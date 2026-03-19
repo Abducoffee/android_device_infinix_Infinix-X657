@@ -20,4 +20,3 @@
 
 # External storage
 /external_sd    vfat    /dev/block/mmcblk1p1    flags=display=SDCard;storage;removable
-/usb-otg        vfat    /dev/block/sda1         flags=display=USBOTG;storage;removable
