@@ -1,7 +1,7 @@
 # Dynamic partitions
-/system         ext4    system      flags=display=System;logical;first_stage_mount;avb=vbmeta_system
-/vendor         ext4    vendor      flags=display=Vendor;logical;first_stage_mount;avb=vbmeta_vendor
-/product        ext4    product     flags=display=Product;logical;first_stage_mount;avb=vbmeta_system
+/system         ext4    system      flags=display="System";logical;first_stage_mount;avb=vbmeta_system
+/vendor         ext4    vendor      flags=display="Vendor";logical;first_stage_mount;avb=vbmeta_vendor
+/product        ext4    product     flags=display="Product";logical;first_stage_mount;avb=vbmeta_system
 
 # Metadata
 /metadata       ext4    /dev/block/platform/bootdevice/by-name/metadata    flags=display="Metadata"
@@ -30,5 +30,4 @@
 /tranfs         ext4    /dev/block/platform/bootdevice/by-name/tranfs         flags=display="Tranfs";backup=1
 
 # External storage
-/external_sd    vfat    /dev/block/mmcblk1p1    flags=display=SDCard;storage;removable
-/usb-otg        vfat    /dev/block/sda1         flags=display=USBOTG;storage;removable
+/external_sd    vfat    /dev/block/mmcblk1p1    flags=display="SDCard";storage;removable
